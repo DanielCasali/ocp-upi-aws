@@ -1,4 +1,4 @@
-# Simple cloud formation templates for UPI on AWS private subnets 
+# Simple cloud formation template for UPI on AWS private subnets 
 This cloudformation templates assume you have three private networks on your VPC and you do have a bastion that is within that VPC reachable by all other. 
 The bastion should not be in the data path after the installation and it will be used for install and maybe maintenance.
 
