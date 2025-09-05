@@ -9,7 +9,7 @@ The bastion should not be in the data path after the installation and it will be
     - The example uses a public subnet for routing to the internet but for Enterprise is understandable this will be done with Transit Gateways and Direct connections. This just has to be working.
  - Route53 Private hosted zone created
  - All access to run the ocpawscloudformation
- - pull-secret from RedHat from your account
+ - Copy your pull-secret from RedHat from your account to be used in the yaml file.
 
 #### This is a yaml file to use without proxy and using the 100.64.0.0/10 for non-routable internal IPs we need to start on 100.68.0.0/14 because 100.64.0.0/16 is used internally by OVN.
 ```
@@ -37,9 +37,11 @@ platform:
 pullSecret: ''
 sshKey: ''
 ```
-If you need add proxies look fo the official RH documentation.
+If you need add proxies look fo the official RH documentation. The no proxy is very important, you should have your internal network that the cluster will connect to, including but not limited to all VPC IPs.
 
-#### If you are using the example infra Download:
+#### If you are using the example infra (the Amazon image I am using is RHEL 8 based) Download:
 [https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/stable-4.18/openshift-client-linux-amd64-rhel8.tar.gz](https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/stable-4.18/openshift-client-linux-amd64-rhel8.tar.gz)
 and
 [https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/stable-4.18/openshift-install-linux.tar.gz](https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/stable-4.18/openshift-install-linux.tar.gz)
+Change for the rhel9 if it is your case
+
