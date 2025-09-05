@@ -6,6 +6,7 @@ The bastion should not be in the data path after the installation and it will be
  - VPC created and all networking allowing access to Internet to the documented URL:
     - https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/installation_configuration/configuring-firewall
     - This can be via proxy, more information bellow
+    - The example uses a public subnet for routing to the internet but for Enterprise is understandable this will be done with Transit Gateways and Direct connections. This just has to be working.
  - Route53 Private hosted zone created
  - All access to run the ocpawscloudformation
  - pull-secret from RedHat from your account
