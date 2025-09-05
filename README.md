@@ -39,3 +39,7 @@ sshKey: ''
 ```
 If you need add proxies look fo the official RH documentation.
 
+#### If you are using the example infra Download:
+[https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/stable-4.18/openshift-client-linux-amd64-rhel8.tar.gz](https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/stable-4.18/openshift-client-linux-amd64-rhel8.tar.gz)
+and
+[https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/stable-4.18/openshift-install-linux.tar.gz](https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/stable-4.18/openshift-install-linux.tar.gz)
