@@ -44,7 +44,55 @@ If you need add proxies look fo the official RH documentation. The no proxy is v
 
 #### If you are using the example infra (the Amazon image I am using is RHEL 8 based) Download:
 [https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/stable-4.18/openshift-client-linux-amd64-rhel8.tar.gz](https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/stable-4.18/openshift-client-linux-amd64-rhel8.tar.gz)
+</br>
 and
+</br>
 [https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/stable-4.18/openshift-install-linux.tar.gz](https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/stable-4.18/openshift-install-linux.tar.gz)
 </br>
 Change for the rhel9 if it is your case
+</br>
+#### After downloading untar your assets and configure the install-config.yaml accordingly:
+```
+[root@ip-10-0-0-239 ~]# ls
+install-config.yaml  openshift-client-linux-amd64-rhel8-4.18.22.tar.gz  README.md
+kubectl              openshift-install
+oc                   openshift-install-linux-4.18.22.tar.gz
+```
+#### Copy the clients to you executable preference (/usr/bin or /usr/local/bin)
+```
+[root@ip-10-0-0-239 ~]# cp oc kubectl /usr/bin/
+[root@ip-10-0-0-239 ~]#
+```
+#### Create the manifest files to serve on the jump/bastion server:
+```
+[root@ip-10-0-0-239 ~]# mkdir ocp
+[root@ip-10-0-0-239 ~]# cp install-config.yaml ocp/
+[root@ip-10-0-0-239 ~]# cd ocp/
+[root@ip-10-0-0-239 ocp]# ../openshift-install create manifests
+INFO Consuming Install Config from target directory
+WARNING Making control-plane schedulable by setting MastersSchedulable to true for Scheduler cluster settings
+INFO Manifests created in: manifests and openshift
+[root@ip-10-0-0-239 ocp]#
+```
+#### Chaange the masters to be schedulable:
+```
+[root@ip-10-0-0-239 ocp]# sed -i 's/mastersSchedulable: true/mastersSchedulable: false/' manifests/cluster-scheduler-02-config.yml
+[root@ip-10-0-0-239 ocp]#
+```
+#### Create the ignition files and serve them via http (you can delete this and uninstall httpd after the cluster instalation.
+```
+[root@ip-10-0-0-239 ocp]# ../openshift-install create ignition-configs
+INFO Consuming Master Machines from target directory
+INFO Consuming Openshift Manifests from target directory
+INFO Consuming Common Manifests from target directory
+INFO Consuming OpenShift Install (Manifests) from target directory
+INFO Consuming Worker Machines from target directory
+INFO Ignition-Configs created in: . and auth
+[root@ip-10-0-0-239 ocp]# chmod 644 *.ign
+[root@ip-10-0-0-239 ocp]# mkdir /var/www/html/ignition
+[root@ip-10-0-0-239 ocp]# cp *.ign /var/www/html/ignition/
+[root@ip-10-0-0-239 ocp]#
+```
+## It is important to make sure you can reach the http server, if you need to test, get a t3.micro instance on the VPC the cluster will be installed.
+
+# Deploy the automation and correctly fullfil the entries.
