@@ -129,10 +129,35 @@ rm authority.json temp_config.json
 secret/pull-secret data updated
 ```
 
-
-
-
-
+### Configure the IBM Operator Catalog
+```
+[root@ip-10-0-0-239 ~]# echo 'apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: ibm-operator-catalog
+  namespace: openshift-marketplace
+spec:
+  displayName: IBM Operator Catalog
+  publisher: IBM
+  sourceType: grpc
+  image: icr.io/cpopen/ibm-operator-catalog:latest
+  updateStrategy:
+    registryPoll:
+      interval: 45m' >./ibm-catalog_source.yaml
+oc apply -f ibm-catalog_source.yaml -n openshift-marketplace
+catalogsource.operators.coreos.com/ibm-operator-catalog created
+[root@ip-10-0-0-239 ~]#
+```
+### Install the Fusion Operator
+1. Log in to Red Hat® OpenShift Container Platform web management console.
+2. Go to Operators > OperatorHub
+3. Under Source, select IBM Operator Catalog.
+    - It lists all operators that are part of the IBM Operator Catalog including IBM Fusion.
+4. Click IBM Fusion.
+    - The Version, Capability level, Source, and Provider type of IBM Fusion is available.
+5. Click Install.
+    - It opens the Install Operator page for IBM Fusion operator.
+6. Select v2.0 in the update channel where the current operator is published.
 
 
 
