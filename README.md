@@ -112,7 +112,22 @@ You need to activate your IBM API key to the icr Container registryinside Opensh
 </br>
 Download your API Key from the IBM Site https://myibm.ibm.com/products-services/containerlibrary
 </br>
-Create the keyscript file on the server where you configured the system:admin user
+Create the keyscript file on the server where you configured the system:admin user 
+```
+GENERATED_ENTITLEMENT_KEY="<Get the ICR IBM API Key here>"
+BASE64_ENCODED_ENTITLEMENT_KEY=$(echo -n "cp:$GENERATED_ENTITLEMENT_KEY" | base64 -w0)
+echo '{
+  "auth": "'$BASE64_ENCODED_ENTITLEMENT_KEY'"
+}' >authority.json
+oc get secret/pull-secret -n openshift-config -ojson | jq -r '.data[".dockerconfigjson"]' | base64 -d  | jq '.[]."cp.icr.io" += input' - authority.json > temp_config.json
+oc set data secret/pull-secret -n openshift-config --from-file=.dockerconfigjson=temp_config.json
+rm authority.json temp_config.json
+```
+##### Make sure you change <Get the ICR IBM API Key here> for the real API Key and run the script
+```
+[root@ip-10-0-0-239 ~]# sh keyscript
+secret/pull-secret data updated
+```
 
 
 
