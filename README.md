@@ -93,6 +93,36 @@ INFO Ignition-Configs created in: . and auth
 [root@ip-10-0-0-239 ocp]# cp *.ign /var/www/html/ignition/
 [root@ip-10-0-0-239 ocp]#
 ```
-## It is important to make sure you can reach the http server, if you need to test, get a t3.micro instance on the VPC the cluster will be installed.
+### It is important to make sure you can reach the http server, if you need to test, get a t3.micro instance on the VPC the cluster will be installed.
+### Deploy the automation and correctly fullfil the entries.
 
-# Deploy the automation and correctly fullfil the entries.
+### Enable the system:admin user
+To enable the system admin user be mindfull of the kubeconfig file and make sure you back it up, you destroy the file when you do an "oc login" so although RedHat documentation uses to export the KUBECONFIG variable, I prefer to use the default location and copy it over when needed:
+```
+[root@ip-10-0-0-239 ocp]# mkdir ~/.kube
+[root@ip-10-0-0-239 ocp]# cp auth/kubeconfig ~/.kube/config
+[root@ip-10-0-0-239 ocp]#
+```
+
+# Installing Fusion (the entitlement part also prepares for CP4D)
+
+Fusion will create the data layer that will transform GP2 or GP3 block devices across the 3 zones in one Highly available fast set of StorageClasses.
+### Enable ICR container registry
+You need to activate your IBM API key to the icr Container registryinside Openshift to use the IBM operators
+</br>
+Download your API Key from the IBM Site https://myibm.ibm.com/products-services/containerlibrary
+</br>
+Create the keyscript file on the server where you configured the system:admin user
+
+
+
+
+
+
+
+
+
+
+
+
+
