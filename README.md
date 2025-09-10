@@ -56,6 +56,7 @@ https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/stable-4.18/open
 and
 </br>
 https://mirror.openshift.com/pub/openshift-v4/amd64/clients/ocp/stable-4.18/openshift-install-rhel9-amd64.tar.gz
+
 #### After downloading untar your assets and configure the install-config.yaml accordingly:
 ```
 [root@ip-10-0-0-239 ~]# ls
