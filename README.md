@@ -14,7 +14,7 @@ The bastion should not be in the data path after the installation and it will be
 ### About the Openshift template
 I am using t3.2xlarge for the bootstrap instance because you need ec2-console to troubleshoot any network issues that can arise on the first install. this instance can be deleted and changed on the cloud formation stack after the successfull install. I am using t2.2xlarge as it is an economical instance to test that the infrastructure and access are adequate for an installation. No additional workload is accounted for in this one. Aditional workers can be added later on and there is no need for bootstrap again.
 
-#### This is a yaml file to use without proxy and using the 100.64.0.0/10 for non-routable internal IPs. In practice, we need to start on 100.68.0.0/14 because 100.64.0.0/16 is used internally by OVN.
+#### This is a yaml file to use without proxy and using the 100.64.0.0/10 for non-routable internal IPs. In practice, we need to start on 100.68.0.0/14 because 100.64.0.0/16 is used internally by OVN. Make sure the base domain and cluster name match what you have on your domain
 ```
 apiVersion: v1
 baseDomain: test.local
@@ -100,6 +100,8 @@ INFO Ignition-Configs created in: . and auth
 ```
 ### It is important to make sure you can reach the http server, if you need to test, get a t3.micro instance on the VPC the cluster will be installed.
 ### Deploy the automation and correctly fullfil the entries.
+
+### Worker nodes will not join the cluster automatically due to security, you have to approve certificate requests.
 
 ### Enable the system:admin user
 To enable the system admin user be mindfull of the kubeconfig file and make sure you back it up, you destroy the file when you do an "oc login" so although RedHat documentation uses to export the KUBECONFIG variable, I prefer to use the default location and copy it over when needed:
